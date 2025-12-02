@@ -1,40 +1,68 @@
-# Khai báo biến danh sách toàn cục products = []
-products = [] # Biến này sẽ chứa danh sách các sản phẩm trong kho
+# File: inventory.py
 
-def add_product():
-    # Nhập tên, giá, số lượng -> append vào products
-    print("--- 1. Nhập hàng mới ---")
-    pass 
+# 1. Khai báo biến danh sách toàn cục products = []
+products = []
+
+def add_product(name, price, quantity):
+    """
+    Hàm thêm sản phẩm vào danh sách products.
+    """
+    product = {
+        "name": name,
+        "price": price,
+        "qty": quantity
+    }
+    products.append(product)
+    print(f"Đã thêm thành công: {name}")
 
 def view_inventory():
-    # Duyệt list products và in ra
-    pass 
-
-def check_low_stock():
-    # Duyệt list, kiểm tra nếu qty < 5 thì in ra cảnh báo hết hàng
-    pass 
+    """
+    Hàm hiển thị danh sách sản phẩm.
+    Duyệt danh sách và in ra màn hình.
+    """
+    if not products:
+        print("Kho hàng đang trống!")
+    else:
+        print("\n--- DANH SÁCH SẢN PHẨM ---")
+        # In tiêu đề cột cho đẹp
+        print(f"{'Tên SP':<20} {'Giá':<10} {'Số lượng':<10}")
+        print("-" * 40)
+        
+        for p in products:
+            # Lấy dữ liệu từ dictionary
+            print(f"{p['name']:<20} {p['price']:<10} {p['qty']:<10}")
+        print("-" * 40)
 
 def main():
     while True:
-        print("\n=== QUẢN LÝ KHO HÀNG ===")
-        print("1. Nhập hàng mới")
-        print("2. Xem tồn kho")
-        print("3. Cảnh báo hết hàng")
-        print("4. Thoát")
-
-        choice = input("Chọn chức năng: ")
+        print("\n--- QUẢN LÝ KHO HÀNG (INVENTORY MANAGEMENT) ---")
+        print("1. Thêm sản phẩm (Add product)")
+        print("2. Hiển thị danh sách sản phẩm (List products)")
+        print("3. Tìm kiếm sản phẩm (Search product)")
+        print("0. Thoát (Exit)")
+        
+        choice = input("Mời bạn chọn chức năng: ")
 
         if choice == '1':
-            add_product()
+            name = input("Nhập tên sản phẩm: ")
+            try:
+                price = int(input("Nhập giá bán: "))
+                quantity = int(input("Nhập số lượng tồn kho: "))
+                add_product(name, price, quantity)
+            except ValueError:
+                print("Lỗi: Giá và Số lượng phải là số nguyên!")
+                
         elif choice == '2':
+            # Gọi hàm xem tồn kho vừa viết
             view_inventory()
+            
         elif choice == '3':
-            check_low_stock()
-        elif choice == '4':
-            print("Kết thúc chương trình.")
+            print("Chức năng Tìm kiếm sẽ được phát triển sau.")
+        elif choice == '0':
+            print("Đã thoát chương trình.")
             break
         else:
-            print("Lựa chọn không hợp lệ.")
+            print("Lựa chọn không hợp lệ, vui lòng thử lại.")
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     main()
